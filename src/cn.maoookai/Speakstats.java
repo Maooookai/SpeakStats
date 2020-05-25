@@ -20,6 +20,8 @@ public class Speakstats extends JcqAppAbstract implements ICQVer, IMsg, IRequest
     private static final String username = "root";
     private static final String password = "maokai";
 
+    static String clearTodayData = "UPDATE speakstats.todaystats SET Bubbles = 0";
+
     static
     {
         try
@@ -60,8 +62,9 @@ public class Speakstats extends JcqAppAbstract implements ICQVer, IMsg, IRequest
         Speakstats test = new Speakstats();
         test.startup();
         test.enable();
-        test.groupMsg(0,10060,933686208L,1220568034,"","龙王是谁",0);
-        dragonSetter();
+        //test.groupMsg(0,10060,933686208L,1220568034,"","龙王是谁",0);
+        //dragonSetter();
+        sqlExecutor(clearTodayData);
     }
 
     public static void sqlExecutor(String sql) throws SQLException {
@@ -127,6 +130,13 @@ public class Speakstats extends JcqAppAbstract implements ICQVer, IMsg, IRequest
     }
 
     public int privateMsg(int subType, int msgId, long fromQQ, String msg, int font) {
+        if (msg.equals("清空每日数据")) {
+            try {
+                sqlExecutor(clearTodayData);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
         return 0;
     }
 
