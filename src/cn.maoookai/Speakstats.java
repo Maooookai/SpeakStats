@@ -36,7 +36,6 @@ public class Speakstats extends JcqAppAbstract implements ICQVer, IMsg, IRequest
     }
 
     private static Connection mysqlConnector = null;
-    //单例模式返回数据库连接
     public static Connection getConnection() throws Exception
     {
         if(mysqlConnector == null)
